@@ -10,6 +10,6 @@ export const CreateUserSchema = z.object({
 }) 
 
 export const SigninSchema = z.object({
-    email: emailSchema,
-    password: passwordSchema,
+    email: z.string().email().min(3).max(100),
+    password: z.string().regex(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/, "Password must be 8-16 characters long, include at least one uppercase letter, one lowercase letter, one digit, and one special character, and must not contain spaces."),
 })
