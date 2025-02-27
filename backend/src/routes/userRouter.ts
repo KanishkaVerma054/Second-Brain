@@ -77,6 +77,11 @@ userRouter.post("/signin", async(req: Request, res: Response) => {
         const token = jwt.sign({
             userId: user?.id
         }, JWT_SECRET, {expiresIn: "1d"})
+        res.cookie('access_token', token, {
+            httpOnly: true,
+            
+        })
+
 
         res.json({
             message: "User signed in",
@@ -90,3 +95,9 @@ userRouter.post("/signin", async(req: Request, res: Response) => {
     }
 })
 
+userRouter.get("/logout", (req, res) => {
+    res.clearCookie('access_token');
+    res.status(200).json({
+        message: "User logged out!"
+    })
+})

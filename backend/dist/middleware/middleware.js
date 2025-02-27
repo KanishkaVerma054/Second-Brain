@@ -7,8 +7,14 @@ exports.middleware = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../config");
 const middleware = (req, res, next) => {
-    var _a;
-    const token = (_a = req.headers["authorization"]) !== null && _a !== void 0 ? _a : "";
+    // const token = req.headers["authorization"] ?? ""
+    const token = req.cookies.access_token;
+    if (!token) {
+        res.status(401).json({
+            message: "User not AuthenticatorResponse. Token not found"
+        });
+        return;
+    }
     const decoded = jsonwebtoken_1.default.verify(token, config_1.JWT_SECRET);
     if (typeof decoded == "string") {
         return;
