@@ -81,7 +81,10 @@ exports.userRouter.post("/signin", (req, res) => __awaiter(void 0, void 0, void 
         }
         const token = jsonwebtoken_1.default.sign({
             userId: user === null || user === void 0 ? void 0 : user.id
-        }, config_1.JWT_SECRET);
+        }, config_1.JWT_SECRET, { expiresIn: "1d" });
+        res.cookie('authorization', token, {
+            httpOnly: true
+        });
         res.json({
             message: "User signed in",
             token
@@ -89,7 +92,9 @@ exports.userRouter.post("/signin", (req, res) => __awaiter(void 0, void 0, void 
     }
     catch (error) {
         res.status(411).json({
-            message: "UsServer error "
+            message: "Server error "
         });
     }
 }));
+exports.userRouter.post("/logout", (req, res) => {
+});

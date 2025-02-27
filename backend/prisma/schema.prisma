@@ -14,35 +14,50 @@ datasource db {
 }
 
 model User {
-  id String @id @default(uuid())
-  email String @unique
+  id       String    @id @default(uuid())
+  email    String    @unique
   password String
-  content Content[]
-  link Link[]
-  name String
+  content  Content[]
+  link     Link[]
+  name     String
 }
 
 model Content {
-  id Int @id @default(autoincrement())
-  title String
-  link String
-  type String
-  tagId Int
-  userId String
+  id        String      @id @default(uuid())
+  title     String
+  link      String
+  type      String
+  userId    String
   createdAt DateTime @default(now())
-  tags Tags @relation(fields: [tagId], references: [id])
-  user User @relation(fields: [userId], references: [id])
+
+  //Many to many relationship through contenttag
+  tags        Tags[]        @relation("ContentTags")
+  user        User          @relation(fields: [userId], references: [id])
+  ContentTags ContentTags[]
 }
 
 model Link {
-  id String @id @default(uuid())
-  hash String
+  id     String @id @default(uuid())
+  hash   String
   userId String
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model Tags {
-  id Int @id @default(autoincrement())
-  title String
-  content Content[]
+  id       Int       @id @default(autoincrement())
+  title    String    @unique
+  contents Content[] @relation("ContentTags")
+
+  ContentTags ContentTags[]
+}
+
+//Many to many relation table
+model ContentTags {
+  contentId String
+  tagId     Int
+
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  tag     Tags    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([contentId, tagId])
 }

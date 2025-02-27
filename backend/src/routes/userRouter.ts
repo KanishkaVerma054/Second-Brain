@@ -1,4 +1,4 @@
-import { application, Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import bcrypt from "bcrypt";
 import { CreateUserSchema, SigninSchema } from "../types/types";
 import { prismaClient } from "../db/db";
@@ -76,7 +76,7 @@ userRouter.post("/signin", async(req: Request, res: Response) => {
         }
         const token = jwt.sign({
             userId: user?.id
-        }, JWT_SECRET)
+        }, JWT_SECRET, {expiresIn: "1d"})
 
         res.json({
             message: "User signed in",
@@ -85,7 +85,7 @@ userRouter.post("/signin", async(req: Request, res: Response) => {
 
     } catch (error) {
         res.status(411).json({
-            message: "UsServer error "
+            message: "Error while signing in "
         })
     }
 })
