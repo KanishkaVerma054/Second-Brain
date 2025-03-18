@@ -96,7 +96,7 @@ exports.userRouter.post("/signin", (req, res) => __awaiter(void 0, void 0, void 
         });
     }
 }));
-exports.userRouter.get("/logout", (req, res) => {
+exports.userRouter.post("/logout", (req, res) => {
     res.clearCookie('access_token');
     res.status(200).json({
         message: "User logged out!"

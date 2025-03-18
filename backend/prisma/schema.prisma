@@ -18,46 +18,31 @@ model User {
   email    String    @unique
   password String
   content  Content[]
-  link     Link[]
+  link     Share[]
   name     String
 }
 
 model Content {
   id        String      @id @default(uuid())
+  userId    String
   title     String
   link      String
   type      String
-  userId    String
   createdAt DateTime @default(now())
-
-  //Many to many relationship through contenttag
-  tags        Tags[]        @relation("ContentTags")
+  tags        Tags[]        
   user        User          @relation(fields: [userId], references: [id])
-  ContentTags ContentTags[]
 }
 
-model Link {
-  id     String @id @default(uuid())
-  hash   String
+model Share {
+  id     String @unique @id @default(uuid())
+  hash   String @unique
   userId String
   user   User   @relation(fields: [userId], references: [id])
 }
 
 model Tags {
-  id       Int       @id @default(autoincrement())
+  id       String       @id @default(uuid())
   title    String    @unique
-  contents Content[] @relation("ContentTags")
-
-  ContentTags ContentTags[]
+  contents Content[] 
 }
 
-//Many to many relation table
-model ContentTags {
-  contentId String
-  tagId     Int
-
-  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
-  tag     Tags    @relation(fields: [tagId], references: [id], onDelete: Cascade)
-
-  @@id([contentId, tagId])
-}

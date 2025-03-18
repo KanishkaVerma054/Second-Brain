@@ -1,1 +1,1 @@
-{"root":["./src/config.ts","./src/index.ts","./src/types.d.ts","./src/db/db.ts","./src/middleware/middleware.ts","./src/routes/contentRouter.ts","./src/routes/shareRouter.ts","./src/routes/userRouter.ts","./src/types/types.ts"],"version":"5.7.2"}
+{"root":["./src/config.ts","./src/index.ts","./src/types.d.ts","./src/db/db.ts","./src/middleware/middleware.ts","./src/routes/contentRouter.ts","./src/routes/shareRouter.ts","./src/routes/tagsRouter.ts","./src/routes/userRouter.ts","./src/types/types.ts"],"version":"5.7.2"}
