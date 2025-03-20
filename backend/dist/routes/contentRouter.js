@@ -81,13 +81,13 @@ exports.contentRouter.put("/content/:id", (req, res) => __awaiter(void 0, void 0
     var _a, _b, _c;
     try {
         const contentId = req.params.id;
-        // const userId = req.userId;
-        // if (!userId) {
-        //   res.status(403).json({
-        //     message: "Unauthorized request",
-        //   });
-        //   return;
-        // }
+        const userId = req.userId;
+        if (!userId) {
+            res.status(403).json({
+                message: "Unauthorized request",
+            });
+            return;
+        }
         const contentBody = types_1.ContentSchema.safeParse(req.body);
         if (!contentBody.success) {
             res.status(401).json({
@@ -98,7 +98,7 @@ exports.contentRouter.put("/content/:id", (req, res) => __awaiter(void 0, void 0
         const existingContent = yield db_1.prismaClient.content.findFirst({
             where: {
                 id: contentId,
-                // userId: req.userId,
+                userId: req.userId,
             },
             include: {
                 tags: true
@@ -108,7 +108,7 @@ exports.contentRouter.put("/content/:id", (req, res) => __awaiter(void 0, void 0
             res.status(404).json({ message: "Content not found or unauthorized" });
             return;
         }
-        const existingTag = existingContent.tags.map((tags) => tags.title);
+        const existingTag = existingContent.tags.map((tag) => tag.title);
         const newTag = (_a = contentBody.data.tags) === null || _a === void 0 ? void 0 : _a.map((tag) => tag.title);
         const removeTags = existingContent.tags.filter((tag) => !(newTag !== null && newTag !== void 0 ? newTag : []).includes(tag.title));
         const connectOrCreateTags = (_b = contentBody.data.tags) === null || _b === void 0 ? void 0 : _b.map((tag) => ({
@@ -139,7 +139,7 @@ exports.contentRouter.put("/content/:id", (req, res) => __awaiter(void 0, void 0
     }
     catch (error) {
         res.status(500).json({
-            message: "Error deleting the content or content doesen't exist",
+            message: "Error updating the content",
             error: error,
         });
     }

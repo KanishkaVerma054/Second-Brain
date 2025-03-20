@@ -1,5 +1,5 @@
 export const random = (len: number) => {
-    let options = "sjhdsshgshsjhcfsdjfhsjf872338423874"
+    let options = "ABCDEFGHIJKLMNOPQRSTUVWXYZasdfghjklzxcvnbmniortewqlq65843912309"
     let length = options.length
 
     let ans = "";

@@ -36,7 +36,7 @@ model Content {
 model Share {
   id     String @unique @id @default(uuid())
   hash   String @unique
-  userId String
+  userId String @unique
   user   User   @relation(fields: [userId], references: [id])
 }
 

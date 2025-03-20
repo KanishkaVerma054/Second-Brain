@@ -69,7 +69,6 @@ contentRouter.get("/content", async (req: Request, res: Response) => {
 });
 
 contentRouter.put("/content/:id", async(req: Request, res: Response) => {
-
   try {
     const contentId = req.params.id;
     const userId = req.userId;
@@ -106,7 +105,7 @@ contentRouter.put("/content/:id", async(req: Request, res: Response) => {
 
     const existingTag = existingContent.tags.map((tag) => tag.title);
     const newTag = contentBody.data.tags?.map((tag) => tag.title)
-
+    
     const removeTags = existingContent.tags.filter((tag) => !(newTag ?? []).includes(tag.title))
 
     const connectOrCreateTags = contentBody.data.tags?.map((tag) => ({
@@ -139,7 +138,7 @@ contentRouter.put("/content/:id", async(req: Request, res: Response) => {
     
   } catch (error) {
     res.status(500).json({
-      message: "Error deleting the content or content doesen't exist",
+      message: "Error updating the content",
       error: error,
     });
   }
