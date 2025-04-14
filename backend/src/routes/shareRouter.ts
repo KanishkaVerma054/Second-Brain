@@ -94,7 +94,6 @@ shareRouter.get("/:shareLink", async(req: Request, res: Response) => {
       res.status(200).json({
         getContent
       })
-    //   return;
 
     } catch(error) {
         console.error("Error in getting link", error)

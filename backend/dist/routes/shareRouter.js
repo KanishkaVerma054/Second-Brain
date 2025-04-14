@@ -96,7 +96,6 @@ exports.shareRouter.get("/:shareLink", (req, res) => __awaiter(void 0, void 0, v
         res.status(200).json({
             getContent
         });
-        //   return;
     }
     catch (error) {
         console.error("Error in getting link", error);
