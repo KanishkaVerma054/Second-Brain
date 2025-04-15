@@ -10,11 +10,10 @@ datasource db {
 model User {
   id       String    @id @default(uuid())
   email    String    @unique
-  password String?
+  password String
   content  Content[]
   link     Share[]
   name     String
-  provider String?   @default("email") // Can be "email" or "google"
 }
 
 model Content {

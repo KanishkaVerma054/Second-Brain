@@ -31,7 +31,7 @@ exports.contentRouter.post("/content", (req, res) => __awaiter(void 0, void 0, v
                 link: contentData.data.link,
                 type: contentData.data.type,
                 userId: userId !== null && userId !== void 0 ? userId : "",
-                // this will added existing tag to the content and if the tags are not created it will create a new tag 
+                // this will add existing tag to the content and if the tags are not created it will create a new tag 
                 tags: contentData.data.tags
                     ? {
                         connectOrCreate: contentData.data.tags.map((tag) => ({

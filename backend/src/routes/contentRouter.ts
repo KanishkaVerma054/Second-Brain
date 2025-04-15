@@ -22,7 +22,7 @@ contentRouter.post("/content", async (req: Request, res: Response) => {
         type: contentData.data.type,
         userId: userId ?? "",
 
-        // this will added existing tag to the content and if the tags are not created it will create a new tag 
+        // this will add existing tag to the content and if the tags are not created it will create a new tag 
         tags: contentData.data.tags
           ? {
               connectOrCreate: contentData.data.tags.map((tag) => ({
@@ -105,7 +105,6 @@ contentRouter.put("/content/:id", async(req: Request, res: Response) => {
 
     const existingTag = existingContent.tags.map((tag) => tag.title);
     const newTag = contentBody.data.tags?.map((tag) => tag.title)
-    
     const removeTags = existingContent.tags.filter((tag) => !(newTag ?? []).includes(tag.title))
 
     const connectOrCreateTags = contentBody.data.tags?.map((tag) => ({
