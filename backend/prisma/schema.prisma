@@ -13,7 +13,7 @@ model User {
   password String
   content  Content[]
   link     Share[]
-  name     String
+  // name     String
 }
 
 model Content {

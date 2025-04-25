@@ -54,9 +54,6 @@ tagsRouter.get("/:tagId/content", async (req: Request, res: Response) => {
           },
         },
       },
-    //   include: {
-    //     tags: true,
-    //   },
       orderBy: {
         createdAt: "desc",
       },

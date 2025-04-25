@@ -59,9 +59,6 @@ exports.tagsRouter.get("/:tagId/content", (req, res) => __awaiter(void 0, void 0
                     },
                 },
             },
-            //   include: {
-            //     tags: true,
-            //   },
             orderBy: {
                 createdAt: "desc",
             },
