@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useRef } from 'react'
 
 interface AuthProps {
   type: 'signin' | 'signup',
@@ -9,9 +9,20 @@ interface AuthProps {
 
 const AuthForm = ({type, onSubmit}: AuthProps) => {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
+  const handleAuth = async() => {
+    const email = emailRef.current?.value || '';
+    const password = passwordRef.current?.value || '';
+
+    onSubmit({
+      email,
+      password
+    })
+
+    
+  }
 
   return (
     <div className='w-screen h-screen bg-gray-100 flex items-center justify-center'>
@@ -22,22 +33,24 @@ const AuthForm = ({type, onSubmit}: AuthProps) => {
               {type == "signin" ? "Sign in to your account":"Create an account"}
               </h1>
             <p className='text-gray-600'>
-              Don't have an account?
-              <Link href="/signup" className='text-indigo-600 hover:text-indigo-500 ml-1'> Sign up</Link>
+              {type == "signin" ? (<>"Don't have an account?"
+              <Link href="/signup" className='text-indigo-600 hover:text-indigo-500 ml-1'> Sign up</Link></>):(<>"Already have an account?"
+              <Link href="/signin" className='text-indigo-600 hover:text-indigo-500 ml-1'> Sign in</Link></>)}
             </p>
             
           </div>
-          <div className='space-y-4'>
+          <div onSubmit={handleAuth} className='space-y-4'>
             <div className='space-y-1'>
               <p className='text-sm font-medium text-gray-800 '>Email address</p>
-              <input type="email" className='w-full h-9 rounded-md p-3 border border-gray-300 focus:outline-none focus:ring-indigo-500 shadow-sm placeholder-gray-400 focus:border-indigo-500 sm:text-sm' placeholder='you@example.com'/>
+              <input type="email" className='w-full h-9 rounded-md p-3 border border-gray-300 focus:outline-none focus:ring-indigo-500 shadow-sm placeholder-gray-400 focus:border-indigo-500 sm:text-sm' placeholder='you@example.com' ref={emailRef}/>
             </div>
+
             <div className='space-y-1'>
               <p className='text-sm font-medium text-gray-800 '>Password</p>
-              <input type="password" className='w-full h-9 rounded-md p-3 border border-gray-300 focus:outline-none focus:ring-indigo-500 shadow-sm placeholder-gray-400 focus:border-indigo-500 sm:text-sm' placeholder='••••••••'/>
+              <input type="password" className='w-full h-9 rounded-md p-3 border border-gray-300 focus:outline-none focus:ring-indigo-500 shadow-sm placeholder-gray-400 focus:border-indigo-500 sm:text-sm' placeholder='••••••••' ref={passwordRef}/>
             </div>
             <div className='w-full space-y-2 bg-indigo-600 hover:bg-indigo-700 cursor-pointer text-center text-white px-4 py-2 rounded-md'>
-              Sign in
+              {type == "signin" ? "Sign in" : "Sign up"}
             </div>
           </div>        
         </div>
