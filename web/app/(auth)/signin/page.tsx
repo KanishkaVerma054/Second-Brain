@@ -4,23 +4,25 @@ import { API_BACKEND_URL } from "@/config";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const signin = () => {
+const Signin = () => {
   const router = useRouter();
-
   const handleSignin = async (email: string, password: string) => {
     try {
-      const response = axios.post(`${API_BACKEND_URL}/api/v1/signin`, {
+      const response = await axios.post(`${API_BACKEND_URL}/api/v1/signin`, {
         email,
         password
       });
 
+      const jwt = response.data.token;
+      localStorage.setItem("token", jwt);
+
       router.push("/brain");
     } catch (error) {
-      throw error
+      console.error("Signin failed");
     }
   };
 
-  return <AuthForm type="signin" onSubmit={handleSignin} />;
+  return <AuthForm type="signin" onClick={handleSignin} />;
 };
 
-export default signin;
+export default Signin;

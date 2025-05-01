@@ -22,7 +22,7 @@ const config_1 = require("../config");
 exports.userRouter = (0, express_1.Router)();
 const salt_round = 5;
 exports.userRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a, _b, _c;
+    var _a, _b;
     const parsedData = types_1.CreateUserSchema.safeParse(req.body);
     if (!parsedData.success) {
         res.json({
@@ -35,8 +35,8 @@ exports.userRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 
         const hashedPassword = yield bcrypt_1.default.hash((_a = parsedData.data) === null || _a === void 0 ? void 0 : _a.password, salt_round);
         const user = yield db_1.prismaClient.user.create({
             data: {
-                name: (_b = parsedData.data) === null || _b === void 0 ? void 0 : _b.name,
-                email: (_c = parsedData.data) === null || _c === void 0 ? void 0 : _c.email,
+                // name: parsedData.data?.name,
+                email: (_b = parsedData.data) === null || _b === void 0 ? void 0 : _b.email,
                 password: hashedPassword
             }
         });

@@ -1,19 +1,26 @@
-"use client"
-import AuthForm from "@/components/AuthForm"
-import { useRouter } from "next/navigation"
+"use client";
+import AuthForm from "@/components/AuthForm";
+import { API_BACKEND_URL } from "@/config";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
+const Signup = () => {
+  const router = useRouter();
 
-const signup = () => {
-    
-    const router = useRouter()
-    const handleSignup = () => {
+  const handleSignup = async (email: string, password: string ) => {
+    try {
+      await axios.post(`${API_BACKEND_URL}/api/v1/signup`, {
+        email,
+        password
+      })
 
-        const response = 
-
-        router.push("/signin")
+      router.push("/signin");
+    } catch (error) {
+      throw error;
     }
+  };
 
-    return <AuthForm type="signup" onSubmit={handleSignup} />
-}
+  return <AuthForm type="signup" onClick={handleSignup} />;
+};
 
-export default signup
+export default Signup;
