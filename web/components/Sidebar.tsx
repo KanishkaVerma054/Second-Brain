@@ -1,7 +1,11 @@
 import React from 'react'
 import SidebarItem from './SidebarItem'
 import Twitter from '@/public/icons/Tweet'
-import { Brain } from 'lucide-react'
+import { Brain, FileText } from 'lucide-react'
+import Videos from '@/public/icons/Videos'
+import Documents from '@/public/icons/Documents'
+import Link from '@/public/icons/Link'
+import Tags from '@/public/icons/Tags'
 
 const Sidebar = () => {
   return (
@@ -12,6 +16,10 @@ const Sidebar = () => {
       </div>
       <div className='pt-8 pl-4 flex flex-col space-y-3'>
         <SidebarItem text='Tweets' icon={<Twitter/>}/>
+        <SidebarItem text='Videos' icon={<Videos/>}/>
+        <SidebarItem text='Documents' icon={<Documents/>}/>
+        <SidebarItem text='Link' icon={<Link/>}/>
+        <SidebarItem text='Tags' icon={<Tags/>}/>
       </div>
     </div>
   )
